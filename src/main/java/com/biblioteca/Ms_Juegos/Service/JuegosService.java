@@ -9,6 +9,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.reactive.function.client.WebClientResponseException;
 
@@ -22,17 +23,21 @@ import java.util.stream.Collectors;
 public class JuegosService {
     private final JuegosRepository juegosRepository;
 
-    private final WebClient webClient;
+    @Qualifier("categoriaWebClient")
+    private final WebClient categoriaWebClient;
+
+    @Qualifier("clasificacionWebClient")
+    private final WebClient clasificacionWebClient;
 
     private JuegosResponseDTO mapToDTO(Juegos j) {
         return new JuegosResponseDTO(
-                j.getId(), j.getTitulo(), j.getDescripcion(), j.getPrecio(), j.getCategoriaId()
+                j.getId(), j.getTitulo(), j.getDescripcion(), j.getPrecio(), j.getCategoriaId(), j.getClasificacionId()
         );
     }
 
     private void validarCategoria(Long categoriaId) {
         try {
-            webClient.get()
+            categoriaWebClient.get()
                     .uri("/api/categorias/{id}", categoriaId)
                     .retrieve()
                     .bodyToMono(String.class)
@@ -43,6 +48,21 @@ public class JuegosService {
         } catch (Exception e) {
             throw new RuntimeException("No se puede conectar con Ms_Categoria:" + e.getMessage());
 
+        }
+    }
+
+    private void validarClasificacion(Long clasificacionId) {
+        try {
+            clasificacionWebClient.get()
+                    .uri("/api/clasificaciones/{id}", clasificacionId)
+                    .retrieve()
+                    .bodyToMono(String.class)
+                    .block();
+            log.info(">>>> Clasificacion {} validada correctamente (WebClient)", clasificacionId);
+        } catch (WebClientResponseException.NotFound e) {
+            throw new RuntimeException("La clasificacion con id " + clasificacionId + " no existe en Ms-Clasificacion.");
+        } catch (Exception e) {
+            throw new RuntimeException("No se puede conectar con Ms-Clasificacion:" + e.getMessage());
         }
     }
 
@@ -68,17 +88,20 @@ public class JuegosService {
 
     public JuegosResponseDTO Guardar(@Valid  JuegosResponseDTO dto) {
         validarCategoria(dto.getCategoriaId());
-        Juegos j = new Juegos(null, dto.getTitulo(), dto.getDescripcion(), dto.getPrecio(), dto.getCategoriaId());
+        validarClasificacion(dto.getClasificacionId());
+        Juegos j = new Juegos(null, dto.getTitulo(), dto.getDescripcion(), dto.getPrecio(), dto.getCategoriaId(), dto.getClasificacionId());
         return mapToDTO(juegosRepository.save(j));
     }
 
     public Optional<JuegosResponseDTO> actualizar(Long id, JuegosResponseDTO dto) {
         return juegosRepository.findById(id).map(existente -> {
             validarCategoria(dto.getCategoriaId());
+            validarClasificacion(dto.getClasificacionId());
             existente.setTitulo(dto.getTitulo());
             existente.setDescripcion(dto.getDescripcion());
             existente.setPrecio(dto.getPrecio());
             existente.setCategoriaId(dto.getCategoriaId());
+            existente.setClasificacionId(dto.getClasificacionId());
             return mapToDTO(juegosRepository.save(existente));
         });
     }

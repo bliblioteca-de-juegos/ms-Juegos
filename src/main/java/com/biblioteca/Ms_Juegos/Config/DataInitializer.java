@@ -22,10 +22,10 @@ public class DataInitializer implements CommandLineRunner {
             return;
         }
         log.info(">>>> Cargando juegos iniciales...");
-        repository.save(new Juegos(null, "My hero Ultrarumble",            "Batlle royal entre heroes y villanos gana el ultimo grupo en pie", 00.00, 1L));
-        repository.save(new Juegos(null, "God Of War",                     "Aventura de un antiguo guerro en las tierras nordicas",            52.00, 1L));
-        repository.save(new Juegos(null, "Sonic Racing CrossWorlds",       "Juegos de carreas en muchas pistas y con muchos personnajes", 38.50, 2L));
-        repository.save(new Juegos(null, "Balatro",                        "juego de cartas rouglike basado en el poker", 29.99, 2L));
+        repository.save(new Juegos(null, "My hero Ultrarumble",            "Batlle royal entre heroes y villanos gana el ultimo grupo en pie", 00.00, 1L, 3L));
+        repository.save(new Juegos(null, "God Of War",                     "Aventura de un antiguo guerro en las tierras nordicas",            52.00, 1L, 5L));
+        repository.save(new Juegos(null, "Sonic Racing CrossWorlds",       "Juegos de carreas en muchas pistas y con muchos personnajes", 38.50, 2L, 2L));
+        repository.save(new Juegos(null, "Balatro",                        "juego de cartas rouglike basado en el poker", 29.99, 2L, 3L));
         log.info(">>> 5 juegos cargadas OK.");
 
     }

@@ -14,4 +14,5 @@ public class JuegosResponseDTO {
     private String descripcion;
     private Double precio;
     private Long categoriaId;
+    private Long clasificacionId;
 }

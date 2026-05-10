@@ -31,4 +31,7 @@ public class Juegos {
     @Column(name = "categoria_id", nullable = false)
     private Long categoriaId;
 
+    @Column(name = "clasificacion_id", nullable = false)
+    private Long clasificacionId;
+
 }

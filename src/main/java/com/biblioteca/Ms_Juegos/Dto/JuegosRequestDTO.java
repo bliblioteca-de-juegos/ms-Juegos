@@ -23,6 +23,10 @@ public class JuegosRequestDTO {
     @Positive(message = "El precio debe ser mayor que a 0")
     private Double precio;
 
+    @NotNull(message = "La categoria es obligatoria")
+    private Long categoriaId;
 
+    @NotNull(message = "La clasificacion es obligatoria")
+    private Long clasificacionId;
 
 }

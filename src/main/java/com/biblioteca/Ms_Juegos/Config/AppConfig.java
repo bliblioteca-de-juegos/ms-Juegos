@@ -12,12 +12,18 @@ public class AppConfig {
     @Value("${ms.categoria.url}")
     private String categoriasurl;
 
+    @Value("${ms.clasificacion.url}")
+    private String clasificacionUrl;
+
     @Bean
-    public WebClient webClient() {
+    public WebClient categoriaWebClient() {
         return WebClient.builder().baseUrl(categoriasurl).build();
     }
 
+    @Bean
+    public WebClient clasificacionWebClient() {
+        return WebClient.builder().baseUrl(clasificacionUrl).build();
+    }
 
 }
-
 
