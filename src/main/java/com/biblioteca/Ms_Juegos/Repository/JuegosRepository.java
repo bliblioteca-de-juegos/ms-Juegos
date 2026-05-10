@@ -14,7 +14,7 @@ public interface JuegosRepository  extends JpaRepository<Juegos, Long> {
     @Query("SELECT m FROM Juegos m WHERE LOWER(m.titulo) LIKE LOWER(CONCAT('%', :titulo, '%'))")
     List<Juegos> buscarPorTitulo(@Param("titulo") String titulo);
 
-    @Query("SELECT m FROM Juegos m WHERE LOWER(m.descripcion) LIKE LOWER(CONCAT('%', :descriocion, '%'))")
+    @Query("SELECT m FROM Juegos m WHERE LOWER(m.descripcion) LIKE LOWER(CONCAT('%', :descripcion, '%'))")
     List<Juegos> buscarPorDescripcion(@Param("descripcion") String descripcion);
 
     @Query("SELECT m FROM Juegos m WHERE m.precio BETWEEN :min AND :max ORDER BY m.precio")

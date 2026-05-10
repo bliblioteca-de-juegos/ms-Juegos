@@ -33,7 +33,7 @@ public class JuegosService {
     private void validarCategoria(Long categoriaId) {
         try {
             webClient.get()
-                    .uri("/api/categoria/{id}", categoriaId)
+                    .uri("/api/categorias/{id}", categoriaId)
                     .retrieve()
                     .bodyToMono(String.class)
                     .block();
