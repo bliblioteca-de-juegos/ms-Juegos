@@ -18,7 +18,7 @@ public class Juegos {
     private Long id;
 
     @Column(nullable = false, length = 100)
-    private String Titulo;
+    private String titulo;
 
     @Column(nullable = false, length = 100)
     private String descripcion;
@@ -26,8 +26,7 @@ public class Juegos {
     @Column(nullable = false, length = 100)
     private Double precio;
 
-    // Solo el ID de la especialidad. NO hay FK en la BD.
-    // ms-mascotas valida por HTTP que este ID exista en ms-especialidades.
+
     @Column(name = "categoria_id", nullable = false)
     private Long categoriaId;
 
