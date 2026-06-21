@@ -3,6 +3,7 @@ package com.biblioteca.Ms_Juegos;
 import com.biblioteca.Ms_Juegos.Modelo.Juegos; // Importamos tu modelo
 import com.biblioteca.Ms_Juegos.Repository.JuegosRepository;
 import net.datafaker.Faker;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Profile;
@@ -12,6 +13,7 @@ import java.util.Locale;
 
 @Component
 @Profile("dev")
+@Slf4j
 public class DataLoader implements CommandLineRunner {
 
     @Autowired
@@ -40,6 +42,6 @@ public class DataLoader implements CommandLineRunner {
             juegosRepository.save(juego);
         }
 
-        System.out.println("¡Base de datos inicializada con 10 juegos!");
+        log.info("Base de datos inicializada con 10 juegos");
     }
 }

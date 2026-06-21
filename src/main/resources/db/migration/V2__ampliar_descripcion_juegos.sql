@@ -1,0 +1,2 @@
+ALTER TABLE juegos
+    MODIFY COLUMN descripcion VARCHAR(500) NOT NULL;
