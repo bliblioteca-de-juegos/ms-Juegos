@@ -38,7 +38,7 @@ public class JuegosService {
     private void validarCategoria(Long categoriaId) {
         try {
             categoriaWebClient.get()
-                    .uri("/api/categorias/{id}", categoriaId)
+                    .uri("/api/v2/categorias/{id}", categoriaId)
                     .retrieve()
                     .bodyToMono(String.class)
                     .block();
@@ -54,7 +54,7 @@ public class JuegosService {
     private void validarClasificacion(Long clasificacionId) {
         try {
             clasificacionWebClient.get()
-                    .uri("/api/clasificaciones/{id}", clasificacionId)
+                    .uri("/api/v2/clasificaciones/{id}", clasificacionId)
                     .retrieve()
                     .bodyToMono(String.class)
                     .block();

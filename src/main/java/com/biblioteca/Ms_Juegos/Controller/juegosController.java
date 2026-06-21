@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping({"/api/Juegos", "/api/juegos"})
+@RequestMapping({"/api/v2/Juegos", "/api/v2/juegos"})
 @Tag(name="juegos", description = "operaciones relacionadas con ls juegos ")
 @RequiredArgsConstructor
 public class juegosController {
