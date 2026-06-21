@@ -20,7 +20,7 @@ public class Juegos {
     @Column(nullable = false, length = 100)
     private String titulo;
 
-    @Column(nullable = false, length = 100)
+    @Column(nullable = false, length = 500)
     private String descripcion;
 
     @Column(nullable = false, length = 100)

@@ -2,8 +2,11 @@ package com.biblioteca.Ms_Juegos.Controller;
 
 import com.biblioteca.Ms_Juegos.Service.JuegosService;
 import com.biblioteca.Ms_Juegos.Dto.JuegosResponseDTO;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,12 +15,15 @@ import java.util.List;
 
 @RestController
 @RequestMapping({"/api/Juegos", "/api/juegos"})
+@Tag(name="juegos", description = "operaciones relacionadas con ls juegos ")
 @RequiredArgsConstructor
 public class juegosController {
 
+    @Autowired
     private final JuegosService juegosService;
 
     @GetMapping
+    @Operation(summary = "Obtener todas los juegos", description = "obtiene una lista de todos los juegos")
     public List<JuegosResponseDTO> obtenerTodos(){
         return juegosService.obtenerTodas();
     }
