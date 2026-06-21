@@ -1,7 +1,7 @@
 package com.biblioteca.Ms_Juegos.Config;
 
 
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -9,21 +9,20 @@ import org.springframework.web.reactive.function.client.WebClient;
 @Configuration
 public class AppConfig {
 
-    @Value("${ms.categoria.url}")
-    private String categoriasurl;
+	@Bean
+	@LoadBalanced
+	public WebClient.Builder loadBalancedWebClientBuilder() {
+		return WebClient.builder();
+	}
 
-    @Value("${ms.clasificacion.url}")
-    private String clasificacionUrl;
+	@Bean
+	public WebClient categoriaWebClient(@LoadBalanced WebClient.Builder builder) {
+		return builder.clone().baseUrl("http://ms-categoria").build();
+	}
 
-    @Bean
-    public WebClient categoriaWebClient() {
-        return WebClient.builder().baseUrl(categoriasurl).build();
-    }
-
-    @Bean
-    public WebClient clasificacionWebClient() {
-        return WebClient.builder().baseUrl(clasificacionUrl).build();
-    }
+	@Bean
+	public WebClient clasificacionWebClient(@LoadBalanced WebClient.Builder builder) {
+		return builder.clone().baseUrl("http://ms-clasificacion").build();
+	}
 
 }
-
