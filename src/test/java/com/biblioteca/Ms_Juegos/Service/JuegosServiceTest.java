@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import java.util.List;
@@ -33,7 +34,10 @@ class JuegosServiceTest {
 
     @BeforeEach
     void setUp() {
-        juegosService = new JuegosService(juegosRepository, categoriaWebClient, clasificacionWebClient);
+        juegosService = new JuegosService();
+        ReflectionTestUtils.setField(juegosService, "juegosRepository", juegosRepository);
+        ReflectionTestUtils.setField(juegosService, "categoriaWebClient", categoriaWebClient);
+        ReflectionTestUtils.setField(juegosService, "clasificacionWebClient", clasificacionWebClient);
     }
 
     @Test
