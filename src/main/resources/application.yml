@@ -1,15 +1,18 @@
+server:
+  port: ${SERVER_PORT:8082}
+
 spring:
   application:
     name: ms-juegos
   profiles:
-    active: dev
+    active: ${SPRING_PROFILES_ACTIVE:dev}
   datasource:
-    url: jdbc:mysql://localhost:3306/juegos_db?useSSL=false&serverTimezone=UTC
-    username: root
-    password:
-    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: ${SPRING_DATASOURCE_URL:jdbc:mysql://localhost:3306/juegos_db?useSSL=false&serverTimezone=UTC}
+    username: ${SPRING_DATASOURCE_USERNAME:root}
+    password: ${SPRING_DATASOURCE_PASSWORD:}
+    driver-class-name: ${SPRING_DATASOURCE_DRIVER_CLASS_NAME:com.mysql.cj.jdbc.Driver}
   jpa:
-    database-platform: org.hibernate.dialect.MySQLDialect
+    database-platform: ${JPA_DATABASE_PLATFORM:org.hibernate.dialect.MySQLDialect}
     hibernate:
       ddl-auto: validate
     show-sql: true
@@ -17,18 +20,15 @@ spring:
       hibernate:
         format_sql: true
   flyway:
-    baseline-on-migrate: true
     enabled: true
+    baseline-on-migrate: true
 
 eureka:
   client:
-    service-url:
-      default-zone: http://localhost:8761/eureka/
+    serviceUrl:
+      defaultZone: ${EUREKA_CLIENT_SERVICEURL_DEFAULTZONE:http://localhost:8761/eureka/}
   instance:
     prefer-ip-address: true
-
-server:
-  port: 8082
 
 springdoc:
   api-docs:
@@ -39,6 +39,7 @@ springdoc:
 
 ms:
   categoria:
-    url: http://localhost:8081
+    url: ${MS_CATEGORIA_URL:http://localhost:8081}
   clasificacion:
-    url: http://localhost:8093
+    url: ${MS_CLASIFICACION_URL:http://localhost:8093}
+
